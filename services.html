@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location | DMD AUTO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color: #0b0b0b; --text-color: #d1d1d1; --accent-color: #e6e6e6; --bg-card: #141414; --border-color: #2a2a2a; --font-title: 'Playfair Display', serif; --font-body: 'Lato', sans-serif; --font-tech: 'Lato', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; } ul { list-style: none; } img { max-width: 100%; display: block; }
+        
+        header { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-color); border-bottom: 1px solid var(--border-color); z-index: 1000; transition: 0.4s; }
+        header.scrolled { padding: 15px 50px; background: var(--bg-glass); backdrop-filter: blur(10px); }
+        .nav-group { flex: 1; display: flex; gap: 40px; } .nav-group.left { justify-content: flex-start; } .nav-group.right { justify-content: flex-end; }
+        .logo-container { flex: 0 0 auto; margin: 0 40px; text-align: center; }
+        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 400; letter-spacing: 4px; color: var(--accent-color); text-transform: uppercase; position: relative; display: inline-block; cursor: pointer; }
+        .logo::after { content: 'AUTO'; display: block; font-size: 0.6rem; letter-spacing: 8px; margin-top: 5px; font-family: var(--font-body); font-weight: 300; color: #888; }
+        .nav-link { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; position: relative; color: #888; font-family: var(--font-tech); }
+        .nav-link:hover, .nav-link.active { color: var(--accent-color); }
+        .nav-link::before { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 1px; background: var(--accent-color); transition: width 0.3s ease, left 0.3s ease; }
+        .nav-link:hover::before, .nav-link.active::before { width: 100%; left: 0; }
+        .menu-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: #fff; }
+
+        section { padding: 140px 5%; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .page-title { font-family: var(--font-title); font-size: clamp(2.5rem, 5vw, 4rem); text-align: center; margin-bottom: 60px; color: var(--accent-color); font-weight: 400; }
+        
+        .car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .luxury-card { background: transparent; transition: all 0.3s ease; cursor: pointer; border: 1px solid transparent; }
+        .luxury-card:hover { border-color: var(--border-color); transform: translateY(-5px); }
+        
+        .img-wrapper { width: 100%; height: 300px; overflow: hidden; position: relative; margin-bottom: 25px; border: 1px solid var(--border-color); }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; filter: grayscale(30%) contrast(0.9); }
+        .luxury-card:hover .img-wrapper img { transform: scale(1.02); filter: grayscale(0%); }
+        
+        .card-content { text-align: center; padding: 0 10px; }
+        .car-title { font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 10px; color: var(--accent-color); }
+        .car-specs { color: #666; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; font-family: var(--font-tech); margin-bottom: 20px; }
+        .price-line { display: flex; justify-content: center; align-items: baseline; gap: 15px; margin-bottom: 25px; }
+        .price-loc { font-size: 1.2rem; color: var(--text-color); font-weight: 300; }
+        .price-loc span { font-size: 0.8rem; color: #666; }
+        .price-sale { font-size: 1.5rem; color: var(--accent-color); font-family: var(--font-title); }
+        .btn-card { border: 1px solid var(--border-color); padding: 12px 0; width: 100%; text-align: center; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; transition: 0.3s; background: transparent; color: var(--text-color); font-family: var(--font-tech); font-weight: 700; }
+        .luxury-card:hover .btn-card { background: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); }
+
+        footer { background: #111; padding: 60px 5%; border-top: 1px solid var(--border-color); }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 40px; max-width: 1400px; margin: 0 auto; }
+        .footer-col h4 { font-family: var(--font-tech); font-size: 0.9rem; margin-bottom: 25px; color: var(--accent-color); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+        .footer-col p { color: #888; line-height: 1.6; font-size: 0.9rem; margin-bottom: 20px; }
+        .socials a { margin-right: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: #888; transition: 0.3s; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--accent-color); }
+        .map-container { width: 100%; height: 200px; background: #1a1a1a; margin-bottom: 20px; overflow: hidden; border: 1px solid var(--border-color); }
+        .map-container iframe { width: 100%; height: 100%; border: 0; filter: grayscale(100%) invert(92%) contrast(80%) brightness(0.8); }
+        .btn-footer { width: 100%; padding: 15px; background: #111; color: var(--text-color); border: 1px solid var(--border-color); text-transform: uppercase; letter-spacing: 2px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: var(--font-tech); }
+        .btn-footer:hover { background: var(--accent-color); color: var(--bg-color); border-color: var(--accent-color); }
+        .copyright { margin-top: 60px; text-align: center; font-size: 0.7rem; color: #666; border-top: 1px solid var(--border-color); padding-top: 20px; }
+        
+        @media (max-width: 992px) { 
+            header { flex-direction: column; padding: 15px; height: auto; } 
+            .nav-group { display: none; width: 100%; flex-direction: column; text-align: center; padding: 20px 0; background: #000; } 
+            .nav-group.active { display: flex; } 
+            .logo-container { margin: 15px 0; } 
+            .menu-toggle { display: block; position: absolute; right: 20px; top: 25px; } 
+            .footer-grid { grid-template-columns: 1fr; } 
+            .page-title { font-size: 2.5rem; margin-bottom: 40px; }
+            .car-grid { grid-template-columns: 1fr; }
+            .img-wrapper { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-group left"><li><a href="index.html" class="nav-link">Accueil</a></li><li><a href="services.html" class="nav-link active">Location</a></li><li><a href="vente.html" class="nav-link">Vente</a></li></ul>
+        <div class="logo-container"><a href="index.html" class="logo">DMD</a></div>
+        <ul class="nav-group right"><li><a href="depot.html" class="nav-link">Dépôt Vente</a></li><li><a href="recherche.html" class="nav-link">Recherche</a></li><li><a href="contact.html" class="nav-link">Contact</a></li></ul>
+    </header>
+    <main>
+        <section>
+            <h2 class="page-title">Catalogue Location</h2>
+            <div class="car-grid">
+                <!-- Voiture 1 (ID 0: Audi RS7) -->
+                <div class="luxury-card" onclick="window.location.href='details-location.html?car=0'">
+                    <div class="img-wrapper"><img src="audirs7.jpg" alt="Audi RS7"></div>
+                    <div class="card-content">
+                        <h3 class="car-title">Audi RS7 Sportback</h3>
+                        <div class="car-specs">2023 • 2 000 km</div>
+                        <div class="price-line"><div class="price-loc"><span>Loc. 24h:</span> 900 €</div></div>
+                    </div>
+                </div>
+
+                <!-- Voiture 2 (ID 1: Lowrider) -->
+                <div class="luxury-card" onclick="window.location.href='details-location.html?car=1'">
+                    <div class="img-wrapper"><img src="lowrider.jpg" alt="Lowrider"></div>
+                    <div class="card-content">
+                        <h3 class="car-title">Custom Lowrider</h3>
+                        <div class="car-specs">1972 • Custom</div>
+                        <div class="price-line"><div class="price-loc"><span>Loc. 24h:</span> 1 500 €</div></div>
+                    </div>
+                </div>
+
+                <!-- Voiture 3 (ID 2: VW Golf 7R) -->
+                <div class="luxury-card" onclick="window.location.href='details-location.html?car=2'">
+                    <div class="img-wrapper"><img src="golf1.jpg" alt="VW Golf 7R"></div>
+                    <div class="card-content">
+                        <h3 class="car-title">VW Golf 7R</h3>
+                        <div class="car-specs">2019 • 35 000 km</div>
+                        <div class="price-line"><div class="price-loc"><span>Loc. 24h:</span> 350 €</div></div>
+                    </div>
+                </div>
+
+                <!-- Voiture 4 (ID 3: Porsche GT3 RS) -->
+                <div class="luxury-card" onclick="window.location.href='details-location.html?car=3'">
+                    <div class="img-wrapper"><img src="gt3rs.jpg" alt="Porsche GT3 RS"></div>
+                    <div class="card-content">
+                        <h3 class="car-title">Porsche 911 GT3 RS</h3>
+                        <div class="car-specs">2022 • 1 500 km</div>
+                        <div class="price-line"><div class="price-loc"><span>Loc. 24h:</span> 1 200 €</div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="logo" style="margin-bottom: 20px;">DMD</div><p>L'excellence automobile.</p><div class="socials"><a href="#">Instagram</a> <a href="#">Snapchat</a></div></div>
+            <div class="footer-col"><h4>Navigation</h4><ul class="footer-links"><li><a href="index.html">Accueil</a></li><li><a href="services.html">Location</a></li><li><a href="vente.html">Vente</a></li><li><a href="depot.html">Dépôt Vente</a></li></ul></div>
+            <div class="footer-col"><h4>Nous Trouver</h4><div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.215013230877!2d2.292292615509614!3d48.85837007928757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1;3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr&output=embed" allowfullscreen="" loading="lazy"></iframe></div><a href="recherche.html"><button class="btn-footer">Formulaire de Recherche</button></a></div>
+        </div>
+        <p class="copyright">&copy; 2023 DMD AUTO.</p>
+    </footer>
+    <script>const observer=new IntersectionObserver((e)=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('active')),{threshold:0.1});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));function toggleMenu(){document.querySelectorAll('.nav-group').forEach(g=>g.classList.toggle('active'));}</script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | DMD AUTO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg-color: #0b0b0b; --text-color: #d1d1d1; --accent-color: #e6e6e6; --border-color: #2a2a2a; --font-title: 'Playfair Display', serif; --font-body: 'Lato', sans-serif; --font-tech: 'Lato', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; } ul { list-style: none; } img { max-width: 100%; display: block; }
+        
+        header { position: fixed; top: 0; width: 100%; padding: 25px 50px; display: flex; justify-content: space-between; align-items: center; background: var(--bg-color); border-bottom: 1px solid var(--border-color); z-index: 1000; }
+        .nav-group { flex: 1; display: flex; gap: 40px; } .nav-group.left { justify-content: flex-start; } .nav-group.right { justify-content: flex-end; }
+        .logo-container { flex: 0 0 auto; margin: 0 40px; text-align: center; }
+        .logo { font-family: var(--font-title); font-size: 1.8rem; font-weight: 400; letter-spacing: 4px; color: var(--accent-color); text-transform: uppercase; position: relative; display: inline-block; }
+        .logo::after { content: 'AUTO'; display: block; font-size: 0.6rem; letter-spacing: 8px; margin-top: 5px; font-family: var(--font-body); font-weight: 300; color: #888; }
+        .nav-link { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; position: relative; color: #888; font-family: var(--font-tech); }
+        .nav-link:hover, .nav-link.active { color: var(--accent-color); }
+        .nav-link::before { content: ''; position: absolute; bottom: -5px; left: 50%; width: 0; height: 1px; background: var(--accent-color); transition: width 0.3s ease, left 0.3s ease; }
+        .nav-link:hover::before, .nav-link.active::before { width: 100%; left: 0; }
+        .menu-toggle { display: none; cursor: pointer; font-size: 1.5rem; color: #fff; }
+
+        section { padding: 140px 5%; min-height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+        .page-title { font-family: var(--font-title); font-size: 4rem; text-align: center; margin-bottom: 50px; color: var(--accent-color); font-weight: 400; }
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; } .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .contact-content { text-align: center; max-width: 600px; margin: 0 auto; }
+        .contact-links { display: flex; flex-direction: column; gap: 30px; margin-top: 50px; }
+        .contact-btn { padding: 20px; border: 1px solid var(--border-color); font-size: 1.2rem; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; font-family: var(--font-tech); font-weight: 700; }
+        .contact-btn:hover { border-color: #fff; background: #111; transform: translateX(10px); }
+
+        footer { background: #111; padding: 80px 5%; border-top: 1px solid var(--border-color); }
+        .footer-grid { display: grid; grid-template-columns: 1fr 1fr 1.5fr; gap: 60px; max-width: 1400px; margin: 0 auto; }
+        .footer-col h4 { font-family: var(--font-tech); font-size: 0.9rem; margin-bottom: 25px; color: var(--accent-color); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; }
+        .footer-col p { color: #888; line-height: 1.8; font-size: 0.9rem; margin-bottom: 20px; }
+        .socials a { margin-right: 20px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-color); }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: #888; transition: 0.3s; font-size: 0.9rem; }
+        .footer-links a:hover { color: var(--accent-color); }
+        .map-container { width: 100%; height: 200px; background: #1a1a1a; margin-bottom: 20px; overflow: hidden; border: 1px solid var(--border-color); }
+        .map-container iframe { width: 100%; height: 100%; border: 0; filter: grayscale(100%) invert(92%) contrast(83%); }
+        .btn-footer { width: 100%; padding: 15px; background: #fff; color: #000; border: none; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-footer:hover { background: #ccc; }
+        .copyright { margin-top: 80px; text-align: center; font-size: 0.7rem; color: #666; border-top: 1px solid #222; padding-top: 20px; }
+        @media (max-width: 992px) { header { flex-direction: column; padding: 15px; height: auto; } .nav-group { display: none; width: 100%; flex-direction: column; text-align: center; padding: 20px 0; background: #050505; } .nav-group.active { display: flex; } .logo-container { margin: 15px 0; } .menu-toggle { display: block; position: absolute; right: 20px; top: 25px; } .footer-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+        <ul class="nav-group left"><li><a href="index.html" class="nav-link">Accueil</a></li><li><a href="services.html" class="nav-link">Location</a></li><li><a href="vente.html" class="nav-link">Vente</a></li></ul>
+        <div class="logo-container"><a href="index.html" class="logo">DMD</a></div>
+        <ul class="nav-group right"><li><a href="depot.html" class="nav-link">Dépôt Vente</a></li><li><a href="recherche.html" class="nav-link">Recherche</a></li><li><a href="contact.html" class="nav-link active">Contact</a></li></ul>
+    </header>
+    <main>
+        <section>
+            <h2 class="page-title reveal">Contactez-nous</h2>
+            <div class="contact-content reveal">
+                <p style="color: #aaa; font-size: 1.1rem; line-height: 1.6;">Pour toute demande, nos équipes sont à votre disposition via nos canaux directs.</p>
+                <div class="contact-links">
+                    <a href="https://wa.me/1234567890" class="contact-btn" target="_blank">WhatsApp Direct</a>
+                    <a href="#" class="contact-btn">Instagram</a>
+                    <a href="#" class="contact-btn">Snapchat</a>
+                    <a href="mailto:contact@dmdauto.com" class="contact-btn">Email</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col"><div class="logo" style="margin-bottom: 20px;">DMD</div><p>L'excellence automobile.</p><div class="socials"><a href="#">Instagram</a> <a href="#">Snapchat</a></div></div>
+            <div class="footer-col"><h4>Navigation</h4><ul class="footer-links"><li><a href="index.html">Accueil</a></li><li><a href="services.html">Location</a></li><li><a href="vente.html">Vente</a></li><li><a href="depot.html">Dépôt Vente</a></li></ul></div>
+            <div class="footer-col"><h4>Nous Trouver</h4><div class="map-container"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.215013230877!2d2.292292615509614!3d48.85837007928757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66e2964e34e2d%3A0x8ddca9ee380ef7e0!2sTour%20Eiffel!5e0!3m2!1sfr!2sfr!4v1614160000000!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe></div><a href="recherche.html"><button class="btn-footer">Formulaire de Recherche</button></a></div>
+        </div>
+        <p class="copyright">&copy; 2023 DMD AUTO.</p>
+    </footer>
+    <script>const o=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('active')),{threshold:0.15});document.querySelectorAll('.reveal').forEach(el=>o.observe(el));function toggleMenu(){document.querySelectorAll('.nav-group').forEach(g=>g.classList.toggle('active'))}</script>
+</body>
+</html>
